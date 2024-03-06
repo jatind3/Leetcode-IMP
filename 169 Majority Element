@@ -1,0 +1,32 @@
+169 Majority Element
+
+jatin_369
+0
+an hour ago
+C++
+Intuition
+Mera pehla vichar yeh hai ki hamein ek array mein se woh element dhundhna hai jo majority element hai, yaani jo array mein adhik matra mein baar aata hai.
+
+Approach
+Mera drishtikon yeh hai ki main ek variable count rakhunga jo ginte rahega ki kitni baar humne ek particular element ko dekha hai. Main ek aur variable res rakhunga jo humare potential majority element ko represent karega. Jab count 0 ho jaye, hum res ko update karenge. Har ek element ke saath, agar woh res ke barabar hai to count ko badha denge, nahi to ghatayenge. Jab count 0 ho jaye, hum res ko update karenge kyunki humein majority element dhundhna hai
+
+Complexity
+Time complexity:O(n)
+Space complexity: O(1)
+Code
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count = 0;
+        int res = 0;
+
+        for (const int& num: nums) {
+            if (count == 0) {
+                res = num;
+            } 
+            count += (num == res) ? 1 : -1;
+        }
+
+        return res;
+    }
+};
