@@ -1,0 +1,46 @@
+https://leetcode.com/problems/linked-list-cycle/solutions/4832927/141-linked-list-cycle
+
+
+
+jatin_369
+
+C++
+Intuition
+Mera pehla vichar yeh hai ki humein yeh check karna hai ki kya ek linked list mein koi cycle hai ya nahi.
+
+Approach
+Mera drishtikon yeh hai ki main do pointers rakhunga, ek slow aur ek fast. Slow pointer ko har ek kadam par ek node aage badhne me istemal karenge, jabki fast pointer do kadam aage badhega. Agar linked list mein koi cycle hai toh, fast pointer slow pointer ko eventually catch up karega.
+
+Complexity
+Time complexity: O(n)
+Space complexity: O(1)
+Code
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (head == NULL) {
+            return false;
+        }
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while (fast->next != NULL && fast->next->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
