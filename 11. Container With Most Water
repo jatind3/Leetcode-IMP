@@ -1,0 +1,38 @@
+11. Container With Most Water
+
+jatin_369
+
+C++
+Intuition
+Mera pehla vichar yeh hai ki humein do heights mil rahe hain, aur humein in dono heights ke beech ka rectangular area nikalna hai. Hum jo area nikalenge, woh jitna bada ho sake.
+
+Approach
+Mera drishtikon yeh hai ki main ek pointer ko array ke shuruwat se rakhunga aur ek pointer ko array ke ant se. Fir, main dono pointers ko ek dusre ke taraf lekar jaunga, aur jab tak woh ek dusre ko na mile, har kadam par rectangular area calculate karke dekhta jaunga. Har kadam par, main result ko update karta jaunga agar mujhe kisi kadam par ek bada area milta hai.
+
+Complexity
+Time complexity:O(n)
+Space complexity: O(1)
+Code
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i = 0;
+        int j = height.size() - 1;
+        
+        int curr = 0;
+        int result = 0;
+        
+        while (i < j) {
+            curr = (j - i) * min(height[i], height[j]);
+            result = max(result, curr);
+            
+            if (height[i] <= height[j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        
+        return result;
+    }
+};
