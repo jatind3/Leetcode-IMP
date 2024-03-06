@@ -1,0 +1,55 @@
+LC 153
+
+jatin_369
+1
+Mar 05, 2024
+C++
+Intuition
+Yeh problem yeh pooch rahi hai ki ek rotate kiye gaye sorted array mein minimum element kya hai. Di gayi array toh sorted hai, lekin usko rotate kiya gaya hai, isliye ek binary search ka approach istemal karke hum efficiently minimum element ko find kar sakte hain.
+
+Approach
+Is problem ko solve karne ke liye binary search ka idea istemal kiya gaya hai, jisme ham range ko narrow down karte hain jahan minimum element sthit ho sakta hai. Har iteration mein, ham current range ka middle element check karte hain aur ye decide karte hain ki array ka kaunsa half sorted hai. Agar left half sorted hai, to minimum element right half mein hoga, aur agar right half sorted hai, to minimum element left half mein hoga.
+
+Middle element ko left aur right endpoints ke saath compare karke, algorithm ye decide kar sakta hai ki array ka kaunsa half further search karna hai. Search range ko accordingly update karte hain jab tak range ek single element tak reduce ho jata hai, jo rotated sorted array ka minimum element hota hai.
+
+Complexity
+Time complexity:
+Time complexity: O(log n) - Binary search is used, and in each step, the search range is divided by half.
+
+Space complexity:
+Space complexity: O(1) - The algorithm uses only a constant amount of extra space.
+
+Code
+class Solution
+{
+public:
+    int findMin(vector<int> &nums)
+    {
+        
+        int res = nums[0];
+        int l = 0;
+        int r = nums.size() - 1;
+
+        while (l <= r)
+        {
+            if (nums[l] < nums[r])
+            {
+                res = min(res, nums[l]);
+                break;
+            }
+            int mid = l + (r - l) / 2;
+            res = min(res, nums[mid]);
+
+            if (nums[mid] >= nums[l]) // mid present in left sorted array
+            {
+                l = mid + 1; // try to move closer to right sorted array
+            }
+            else
+            {
+                r = mid - 1;
+            }
+        }
+
+        return res;
+    }
+};
